@@ -14,7 +14,10 @@ namespace MVCApp.Models
         public string Pasaporte { get; set; }
         public string Direccion { get; set; }
         public string Sexo { get; set; }
-        public Equipo  EquipoId { get; set; }
-        public Estado  EstadoId { get; set; }
+        public int EquipoId { get; set; }
+        public Equipo  Equipo { get; set; }
+
+        public int EstadoId { get; set; }
+        public Estado  Estado { get; set; }
     }
 }

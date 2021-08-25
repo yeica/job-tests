@@ -1,3 +1,5 @@
+using MVCApp.Data;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -24,6 +26,7 @@ namespace MVCApp
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+            services.AddDbContext<DatabaseContext>(options => options.UseSqlite(Configuration.GetConnectionString("SQLiteConnection")));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
