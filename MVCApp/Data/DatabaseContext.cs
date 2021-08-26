@@ -33,8 +33,6 @@ namespace MVCApp.Data
                 estado.HasData(new Estado { Id = 3, NombreEstado = Models.Estados.AgenteLibre, FechaCreacion = DateTime.Now });
 
             });
-
-            string val = nameof(Models.Estados.AgenteLibre);
         }
      
         public DbSet<Jugador> Jugadores { get; set; }
