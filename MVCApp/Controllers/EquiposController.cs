@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -13,10 +14,12 @@ namespace MVCApp.Controllers
     public class EquiposController : Controller
     {
         private readonly DatabaseContext _context;
+        private readonly IWebHostEnvironment _environment;
 
-        public EquiposController(DatabaseContext context)
+        public EquiposController(DatabaseContext context, IWebHostEnvironment environment)
         {
             _context = context;
+            _environment = environment;
         }
 
         // GET: Equipos
@@ -48,7 +51,14 @@ namespace MVCApp.Controllers
         // GET: Equipos/Create
         public IActionResult Create()
         {
-            ViewData["EstadoId"] = new SelectList(_context.Estados, "Id", "Id");
+            //Adding countries dropdown from json file
+            Pais paisInstance = new Pais();
+            List<Pais> list = paisInstance.GetCountriesList(_environment.ContentRootPath);
+
+            list.Insert(0, new Pais { Name = "Seleccione un país...", Code = "" });
+
+            ViewData["EstadoId"] = new SelectList(_context.Estados, "Id", "NombreEstado");
+            ViewData["Paises"] = list.Select(p => new SelectListItem() { Text = p.Name, Value = p.Code });
             return View();
         }
 
@@ -65,6 +75,8 @@ namespace MVCApp.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+
+
             ViewData["EstadoId"] = new SelectList(_context.Estados, "Id", "Id", equipo.EstadoId);
             return View(equipo);
         }
