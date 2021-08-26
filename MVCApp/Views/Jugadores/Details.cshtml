@@ -1,13 +1,12 @@
 ﻿@model MVCApp.Models.Jugador
 
 @{
-    ViewData["Title"] = "Details";
+    ViewData["Title"] = "Detalles";
 }
 
-<h1>Details</h1>
+<h1 class="mt-5">Detalles de jugador</h1>
 
 <div>
-    <h4>Jugador</h4>
     <hr />
     <dl class="row">
         <dt class = "col-sm-2">
@@ -50,13 +49,13 @@
             @Html.DisplayNameFor(model => model.Equipo)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Equipo.Id)
+            @Html.DisplayFor(model => model.Equipo.Nombre)
         </dd>
         <dt class = "col-sm-2">
             @Html.DisplayNameFor(model => model.Estado)
         </dt>
         <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Estado.Id)
+            @Html.DisplayFor(model => model.Estado.NombreEstado)
         </dd>
     </dl>
 </div>

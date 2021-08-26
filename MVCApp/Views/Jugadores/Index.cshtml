@@ -1,39 +1,36 @@
 ﻿@model IEnumerable<MVCApp.Models.Jugador>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Jugadores";
     List<string> stateList = new List<string> { "Activo", "Cancelado", "Agente Libre", "Todos" };
 }
 
-<h1>Index</h1>
+<h1 class="mt-5">Jugadores</h1>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<div class="row justify-content-end">
-    <div class="dropdown">
-        <button class="btn btn-secondary dropdown-toggle mb-4" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            Ordenar por...
-        </button>
-        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+<div class="row justify-content-end mb-4">
 
-            @foreach (string status in stateList)
+    <a asp-action="Create" class="btn btn-primary mr-2">Añadir jugador</a>
+    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        Ordenar por...
+    </button>
+    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+
+        @foreach (string status in stateList)
+        {
+            @if (ViewBag.setActive == status)
             {
-                     @if (ViewBag.setActive == status)
-                         {
                 <a asp-action="Index" asp-route-statusOrder=@status class="dropdown-item active ">@status</a>
-                         }
-                         else
-                         {
-                <a asp-action="Index" asp-route-statusOrder=@status class="dropdown-item">@status</a>
-                         }
             }
-        </div>
+            else
+            {
+                <a asp-action="Index" asp-route-statusOrder=@status class="dropdown-item">@status</a>
+            }
+        }
     </div>
 </div>
 
 
-<table class="table">
+<table class="table table-striped">
     <thead>
         <tr>
             <th>
@@ -64,38 +61,39 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Nombre)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Apellido)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.FechaNacimiento)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Pasaporte)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Direccion)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Sexo)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Equipo.Nombre)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Estado.NombreEstado)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Nombre)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Apellido)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FechaNacimiento)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Pasaporte)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Direccion)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Sexo)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Equipo.Nombre)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Estado.NombreEstado)
+                </td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-outline-dark btn-sm">Editar</a>
+                    <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-outline-info btn-sm">Detalles</a>
+                    <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-outline-danger btn-sm">Eliminar</a>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
