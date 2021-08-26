@@ -2,6 +2,8 @@
 
 @{
     ViewData["Title"] = "Index";
+    List<string> stateList = new List<string> { "Activo", "Cancelado", "Agente Libre", "Todos" };
+    string active = "";
 }
 
 <h1>Index</h1>
@@ -9,6 +11,29 @@
 <p>
     <a asp-action="Create">Create New</a>
 </p>
+<div class="row justify-content-end">
+    <div class="dropdown">
+        <button class="btn btn-secondary dropdown-toggle mb-4" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Ordenar por...
+        </button>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+
+            @foreach (string status in stateList)
+            {
+                     @if (ViewBag.setActive == status)
+                         {
+                <a asp-action="Index" asp-route-statusOrder=@status class="dropdown-item active ">@status</a>
+                         }
+                         else
+                         {
+                <a asp-action="Index" asp-route-statusOrder=@status class="dropdown-item">@status</a>
+                         }
+            }
+        </div>
+    </div>
+</div>
+
+
 <table class="table">
     <thead>
         <tr>
@@ -61,10 +86,10 @@
                 @Html.DisplayFor(modelItem => item.Sexo)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Equipo.Id)
+                @Html.DisplayFor(modelItem => item.Equipo.Nombre)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Estado.Id)
+                @Html.DisplayFor(modelItem => item.Estado.NombreEstado)
             </td>
             <td>
                 <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
