@@ -1,0 +1,62 @@
+﻿@model IEnumerable<MVCApp.Models.Jugador>
+
+@{
+    ViewData["Title"] = "Jugadores de equipo";
+    List<Jugador> activePlayers = Model.Where(p => p.Estado.NombreEstado == Estados.Activo).ToList();
+    List<Jugador> canceledPlayers = Model.ToList().Where(p => p.Estado.NombreEstado == Estados.Cancelado).ToList();
+    List<Jugador> freeAgentPlayers = Model.ToList().Where(p => p.Estado.NombreEstado == Estados.AgenteLibre).ToList();
+}
+
+<h1 class="mb-4">@ViewBag.TeamData.Nombre</h1>
+
+<div>
+    <div class="row mb-4">
+        <div class="col">
+            <div class="card text-white bg-success">
+                <h5 class="card-header">Activos</h5>
+                <div class="card-body">
+                    @foreach (Jugador player in activePlayers)
+                    {
+                        <p class="card-text">@player.Nombre</p>
+                    }
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card text-white bg-danger">
+                <h5 class="card-header">Cancelados</h5>
+                <div class="card-body">
+                    @foreach (Jugador player in canceledPlayers)
+                    {
+                        <p class="card-text">@player.Nombre</p>
+                    }
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card text-white bg-secondary">
+                <h5 class="card-header">Agente Libre</h5>
+                <div class="card-body">
+                    @foreach (Jugador player in freeAgentPlayers)
+                    {
+                        <p class="card-text">@player.Nombre</p>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Styles
+{
+    <style>
+        .card {
+            min-height: 15rem;
+        }
+    </style>
+}

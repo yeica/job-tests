@@ -47,33 +47,6 @@ namespace MVCApp.Controllers
             return View(players);
         }
 
-        /*[HttpPost]
-        public async Task<IActionResult> Index(string statusOrder)
-        {
-            var databaseContext = _context.Jugadores.Include(j => j.Equipo).Include(j => j.Estado);
-            List<Jugador> players = new List<Jugador> { };
-
-            switch (statusOrder)
-            {
-                case "Activo":
-                    await databaseContext.Where(j => j.Estado.NombreEstado == Estados.Activo).ForEachAsync(p => players.Add(p));
-                    break;
-
-                case "Cancelado":
-                    await databaseContext.Where(j => j.Estado.NombreEstado == Estados.Cancelado).ForEachAsync(p => players.Add(p));
-                    break;
-
-                case "Agente Libre":
-                    await databaseContext.Where(j => j.Estado.NombreEstado == Estados.AgenteLibre).ForEachAsync(p => players.Add(p));
-                    break;
-
-                default:
-                    await databaseContext.ForEachAsync(p => players.Add(p));
-                    break;
-            }
-            return View(players);
-        }*/
-
         // GET: Jugadores/Details/5
         public async Task<IActionResult> Details(int? id)
         {

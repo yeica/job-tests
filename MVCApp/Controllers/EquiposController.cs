@@ -168,5 +168,26 @@ namespace MVCApp.Controllers
         {
             return _context.Equipos.Any(e => e.Id == id);
         }
+
+        public async Task<IActionResult> GetJugadores(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            List<Jugador> players = new List<Jugador> { };
+            await _context.Jugadores.Include(e => e.Estado).Include(e => e.Equipo).Where(j => j.EquipoId == id).ForEachAsync(p => players.Add(p));
+
+            var equipo = await _context.Equipos
+                .Include(e => e.Estado)
+                .FirstOrDefaultAsync(m => m.Id == id);
+
+            List<List<Jugador>> teamsGroupedByStatus = new List<List<Jugador>>();
+
+            ViewData["TeamData"] = equipo;
+
+            return View("ListJugadores", players);
+        }
     }
 }
