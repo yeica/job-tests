@@ -9,8 +9,9 @@ namespace MVCApp.Models
     {
         public int Id { get; set; }
         public string Nombre { get; set; }
-        public string País { get; set; }
+        public string Pais { get; set; }
         public Estado Estado { get; set; }
+        public int EstadoId { get; set; }
         public DateTime FechaCreacion { get; set; }
         public ICollection<Jugador> Jugadores { get; set; }
     }
